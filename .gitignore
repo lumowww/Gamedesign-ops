@@ -26,3 +26,13 @@ sysinfo.txt
 *.apk
 *.unitypackage
 .plastic/
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Qwen Code exports
+qwen-code-export-*.md
+
+# MCP Unity cache
+.gemini/antigravity/mcp_config.json.backup
