@@ -213,6 +213,7 @@ public class PlayerController : MonoBehaviour  // PascalCase
 |----------|---------|
 | MCP не подключается | Открой Unity Editor → убедись что конфиг добавлен в Antigravity Settings |
 | MCP `Connection refused :8090` | Unity Editor закрыт — открой проект |
+| Ошибка HTTP 501 или curl localhost:8090 не работает | Это нормально. MCP работает через **STDIO транспорт**, а не HTTP. Подключается напрямую из Antigravity. |
 | Compile errors блокируют всё | В DEV-Workspace: `get_console_logs` → исправить → `refresh_asset_database` |
 | Не знаю текущую задачу | Читай `task_board.md` → найди свою роль |
 | Потерял контекст | Вызови `/resume` — восстановит последний handoff |
