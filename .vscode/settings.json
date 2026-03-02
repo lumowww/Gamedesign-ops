@@ -1,71 +1,77 @@
 {
-    "files.exclude": {
-        "**/.DS_Store": true,
-        "**/.git": true,
-        "**/.vs": true,
-        "**/.gitmodules": true,
-        "**/.vsconfig": true,
-        "**/*.booproj": true,
-        "**/*.pidb": true,
-        "**/*.suo": true,
-        "**/*.user": true,
-        "**/*.userprefs": true,
-        "**/*.unityproj": true,
-        "**/*.dll": true,
-        "**/*.exe": true,
-        "**/*.pdf": true,
-        "**/*.mid": true,
-        "**/*.midi": true,
-        "**/*.wav": true,
-        "**/*.gif": true,
-        "**/*.ico": true,
-        "**/*.jpg": true,
-        "**/*.jpeg": true,
-        "**/*.png": true,
-        "**/*.psd": true,
-        "**/*.tga": true,
-        "**/*.tif": true,
-        "**/*.tiff": true,
-        "**/*.3ds": true,
-        "**/*.3DS": true,
-        "**/*.fbx": true,
-        "**/*.FBX": true,
-        "**/*.lxo": true,
-        "**/*.LXO": true,
-        "**/*.ma": true,
-        "**/*.MA": true,
-        "**/*.obj": true,
-        "**/*.OBJ": true,
-        "**/*.asset": true,
-        "**/*.cubemap": true,
-        "**/*.flare": true,
-        "**/*.mat": true,
-        "**/*.meta": true,
-        "**/*.prefab": true,
-        "**/*.unity": true,
-        "build/": true,
-        "Build/": true,
-        "Library/": true,
-        "library/": true,
-        "obj/": true,
-        "Obj/": true,
-        "Logs/": true,
-        "logs/": true,
-        "ProjectSettings/": true,
-        "UserSettings/": true,
-        "temp/": true,
-        "Temp/": true
-    },
-    "files.associations": {
-        "*.asset": "yaml",
-        "*.meta": "yaml",
-        "*.prefab": "yaml",
-        "*.unity": "yaml",
-    },
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.patterns": {
-        "*.sln": "*.csproj",
-        "*.slnx": "*.csproj"
-    },
-    "dotnet.defaultSolution": "My project.slnx"
+  "antigravity.agent.defaultModel": "gemini-3-pro",
+  "antigravity.agent.planningMode": "review-driven",
+  "antigravity.agent.autoSave": true,
+  "antigravity.agent.concurrentAgents": 3,
+  
+  "antigravity.mcp.autoConnect": true,
+  "antigravity.mcp.reconnectOnFailure": true,
+  "antigravity.mcp.healthCheckInterval": 30,
+  "antigravity.mcp.preferredServers": [
+    "unity-mcp-coplay",
+    "qwen-plus-unity-architect",
+    "qwen-code-rapid-dev"
+  ],
+  
+  "antigravity.terminal.autoExecution": "review-driven",
+  "antigravity.terminal.allowList": [
+    "ls",
+    "dir",
+    "git status",
+    "git add",
+    "git commit",
+    "npm install",
+    "docker ps",
+    "docker logs"
+  ],
+  "antigravity.terminal.denyList": [
+    "rm -rf",
+    "git push --force",
+    "sudo",
+    "chmod 777"
+  ],
+  
+  "antigravity.security.reviewJavaScript": true,
+  "antigravity.security.sandboxMode": false,
+  "antigravity.security.allowNetworkAccess": true,
+  
+  "antigravity.workspace.brain.path": ".gemini.antigravity.brain",
+  "antigravity.workspace.brain.autoSync": true,
+  "antigravity.workspace.brain.syncInterval": 60,
+  
+  "antigravity.workspace.rules.globalPath": "~/.gemini/GEMINI.md",
+  "antigravity.workspace.rules.workspacePath": ".agent/rules",
+  "antigravity.workspace.workflows.path": ".agent/workflows",
+  
+  "antigravity.unity.mcpEnabled": true,
+  "antigravity.unity.autoRefreshAssetDatabase": true,
+  "antigravity.unity.consoleLogs.maxLines": 100,
+  
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  
+  "files.associations": {
+    "*.SKILL.md": "markdown",
+    "QWEN.md": "markdown",
+    "decisionslog.md": "markdown",
+    "taskboard.md": "markdown"
+  },
+  
+  "files.watcherExclude": {
+    "**/Library/**": true,
+    "**/Temp/**": true,
+    "**/.vs/**": true,
+    "**/obj/**": true,
+    "**/bin/**": true
+  },
+  
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/Library": true,
+    "**/Temp": true,
+    "**/.git": true
+  }
 }

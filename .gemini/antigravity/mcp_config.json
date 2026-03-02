@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "unity-mcp-coplay": {
+      "command": "node",
+      "args": [
+        "Library/PackageCache/com.gamelovers.mcp-unity@e4b7e74ad052/Server~/build/index.js"
+      ],
+      "env": {
+        "UNITY_PROJECT_PATH": "${UNITY_PROJECT_PATH}",
+        "MCP_SERVER_PORT": "8090",
+        "MCP_AUTO_START": "true",
+        "MCP_ALLOW_REMOTE": "true"
+      },
+      "cwd": "${PROJECT_ROOT}",
+      "startup_timeout_sec": 30,
+      "tool_timeout_sec": 120,
+      "enabled": true,
+      "required": true,
+      "description": "Unity MCP Server - bridge между Unity Editor и AI агентами"
+    }
+  }
+}
