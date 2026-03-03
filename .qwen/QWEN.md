@@ -70,6 +70,26 @@
 
 ### MCP Unity Integration
 
+**Правило: Clarify Transport Protocol Before Configuration**
+
+**Всегда проверяй транспортный протокол MCP сервера перед настройкой подключения!**
+
+| MCP Server | Транспорт | Конфигурация |
+|------------|-----------|--------------|
+| Unity MCP | STDIO | `npx -y @modelcontextprotocol/server-unity` |
+| GitHub | HTTP/WebSocket | Требуется токен и URL |
+| Custom | STDIO/HTTP | Смотри документацию сервера |
+
+**Обоснование:** Путаница между STDIO vs HTTP vs WebSocket вызвала ошибки в 3+ сессиях с потерей времени на отладку.
+
+**Проверка перед настройкой:**
+```powershell
+# Перед настройкой MCP сервера:
+# 1. Проверь документацию сервера
+# 2. Определи транспорт (STDIO, HTTP, WebSocket)
+# 3. Покажи официальный пример конфигурации
+```
+
 **Пакет:** `com.gamelovers.mcp-unity` (установлен)
 
 **Архитектура:**
@@ -115,25 +135,71 @@ Unity Editor (McpUnityServer)
 - [ ] Изменением `config/prod.*`
 - [ ] Командами с повышенными привилегиями
 
+### Testing Before Commits (обязательная проверка)
+
+**Правило: Run Tests After Code Changes**
+
+После любых изменений кода, связанных с **аутентификацией, API вызовами, или конфигурационными файлами**:
+
+1. Запусти соответствующие тесты проекта перед коммитом
+2. Проверь что тесты проходят (100% pass rate)
+3. Только после этого делай коммит
+
+**Обоснование:** Buggy code (19 инстансов) и wrong approach (23 инстанса) — главные источники трения. Тестирование ловит ошибки раньше.
+
+**Пример:**
+```powershell
+# После изменений кода/конфигов:
+# 1. Запусти тесты
+npm test
+# или для Unity
+# 2. Проверь что все тесты прошли
+# 3. Только потом commit
+```
+
 ---
 
 ## 🐚 ОБОЛОЧКИ И ОКРУЖЕНИЕ
 
 ### PowerShell vs cmd.exe
 
-1. Всегда определяй оболочку перед выполнением команд
+**Правило: PowerShell First для Windows**
+
+1. **Всегда используй PowerShell синтаксис для команд на Windows** — явно префиксируй PowerShell cmdlets когда нужно
 2. PowerShell: `$var`, `Get-ChildItem`, `Select-String`, `Out-File`
 3. cmd.exe: `%var%`, `dir`, `findstr`
 4. Тестируй команды с `echo` при неопределённости
 
+**Обоснование:** Windows/PowerShell совместимость вызвала 5+ сессий с ошибками команд и переписываниями. PowerShell имеет лучшую интеграцию с Docker и нативные cmdlets.
+
+**Пример:**
+```powershell
+# Для всех shell команд в сессии используй PowerShell синтаксис
+# Я на Windows — используй PowerShell для всех shell команд
+```
+
 ### Docker Verification Checklist
 
-Перед объявлением сервисов здоровыми:
-1. `docker ps` — контейнеры запущены
-2. `docker inspect --format='{{.State.Health.Status}}' <container>`
-3. `docker port <container>` — порты
-4. `curl/wget` — тест endpoints
-5. `docker logs <container> --tail 50` — логи
+**Правило: Mandatory Verification After Docker Changes**
+
+После любых изменений Docker **ВСЕГДА** выполняй проверку перед объявлением успеха:
+
+1. `docker ps -a` — статус всех контейнеров
+2. `docker logs <container> --tail 50` — последние логи
+3. `docker inspect <container> | findstr Health` — проверка health status
+4. `docker port <container>` — проверка маппинга портов
+5. Тест endpoint напрямую (curl/wget или PowerShell Invoke-WebRequest)
+
+**Обоснование:** 3+ сессии с zombie-контейнерами и неполными настройками, объявленными рабочими преждевременно.
+
+**Пример команды для быстрой проверки:**
+```powershell
+# После изменений Docker выполни:
+docker ps
+docker logs <container> --tail 50
+docker inspect <container> | findstr Health
+# Тест service endpoint напрямую
+```
 
 ---
 
@@ -162,6 +228,30 @@ Unity Editor (McpUnityServer)
 ---
 
 ## 🛠️ АВТОНОМНОЕ ЛЕЧЕНИЕ (Environment Healing)
+
+### Environment Variable Debugging (первый шаг)
+
+**Правило: Check Conflicting Environment Variables First**
+
+При отладке проблем с окружением **ПЕРВЫМ ДЕЛОМ** проверяй конфликтующие переменные окружения:
+
+1. **docker-compose.yml** — секция `environment:` и `.env` файлы
+2. **Системные переменные** — `$env:VAR` в PowerShell
+3. **Файлы `.env`** — `.env`, `.env.local`, `.env.dev`, `.env.prod`
+4. **Конфиги сервисов** — config/*.json, appsettings.json
+
+**Обоснование:** Конфликты переменных окружения были корневой причиной в 2+ сессиях, потребовавших множественных итераций.
+
+**Пример проверки:**
+```powershell
+# При отладке проблем с окружением:
+# 1. Проверь docker-compose.yml на conflicting variables
+# 2. Проверь .env файлы
+Get-Content .env
+# 3. Проверь системные переменные
+$env:VARIABLE_NAME
+# 4. Сравни значения между источниками
+```
 
 ### Уровень риска: НИЗКИЙ (автономно)
 - Перезапуск локального сервиса
