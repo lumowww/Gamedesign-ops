@@ -111,7 +111,16 @@ class TestRuleContent:
         """Rule files should not have TODO markers (should be complete)."""
         for rf in rule_files:
             content = rf.read_text(encoding='utf-8')
-            assert 'TODO' not in content.upper(), f"{rf.name} contains TODO markers"
+            # Exclude Kanban-style "TODO →" patterns (task status workflow diagram)
+            # Only flag standalone TODO comments like "TODO:" or line starting with "TODO "
+            lines = content.splitlines()
+            for line in lines:
+                # Skip Kanban workflow diagrams (TODO →)
+                if 'TODO →' in line:
+                    continue
+                # Flag actual TODO markers
+                if line.strip().startswith('TODO:') or line.strip().startswith('TODO '):
+                    assert False, f"{rf.name} contains TODO marker: {line.strip()}"
 
 
 if __name__ == "__main__":

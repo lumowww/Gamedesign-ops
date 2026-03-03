@@ -6,7 +6,7 @@
 
 ### 📋 TODO
 
-TASK-000: Запустить /new-project (PM)
+TASK-INIT-001: Запустить /new-project (PM)
 — Ввести название, концепт, дедлайн
 — Создать project_context.md
 — Сформировать Sprint 1

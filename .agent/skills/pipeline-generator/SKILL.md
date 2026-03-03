@@ -143,7 +143,7 @@ Next Challenge: [почему играет дальше]
 ### ART-001: Art Direction
 Агент: ART | Приоритет: P0 | ETA: День 1
 Вход: Producer Brief + GDD_v01 (gdd_summary)
-Выход: docs/ArtBible/ArtBible_v01.md + art_bible_summary.md  
+Выход: docs/ArtBible/ArtBible_v01.md + art_bible_summary.md
 Критерии: Цветовая палитра, стиль персонажа, стиль окружения
 
 ### DEV-001: Unity Project Setup
@@ -163,7 +163,7 @@ Next Challenge: [почему играет дальше]
 Критерии: Игрок может [глагол], feedback работает, feel ощутим
 Консультации: GD (feel), ART (визуальный feedback)
 
-### ART-002: Core Visual Assets  
+### ART-002: Core Visual Assets
 Агент: ART | Приоритет: P0 | ETA: День 3
 Вход: ArtBible_v01
 Выход: Персонаж (базовые состояния) + тайлы окружения

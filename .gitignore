@@ -36,3 +36,9 @@ qwen-code-export-*.md
 
 # MCP Unity cache
 .gemini/antigravity/mcp_config.json.backup
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
