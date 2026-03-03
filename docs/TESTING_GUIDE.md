@@ -19,14 +19,21 @@
 
 ## 🚀 Быстрый старт
 
-### Запуск всех тестов
+### Запуск из Unity Editor (рекомендуется)
+
+1. Откройте проект в **Unity 6 LTS**
+2. Перейдите: **Window > General > Test Runner**
+3. Выберите **PlayMode** или **EditMode**
+4. Нажмите **Run All**
+
+### Запуск всех тестов (CLI)
 
 ```powershell
-# Из корня проекта
+# Из корня проекта (требует чтобы Unity не был запущен)
 .\scripts\run-tests.ps1
 ```
 
-### Запуск конкретных тестов
+### Запуск конкретных тестов (CLI)
 
 ```powershell
 # Только Runtime тесты
@@ -45,13 +52,15 @@
 ### Запуск агентских тестов (Python)
 
 ```powershell
-# Автоматически запускается вместе с Unity тестами
-.\scripts\run-tests.ps1
+# Требуется Python 3.8+ и pytest
+pip install -r .agent\tests\requirements.txt
 
-# Или напрямую через pytest
+# Запуск тестов
 cd .agent\tests
 pytest -v
 ```
+
+> **Примечание:** Если Python не установлен, агентские тесты будут автоматически пропущены при запуске `run-tests.ps1`.
 
 ---
 
