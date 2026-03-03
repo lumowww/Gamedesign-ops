@@ -1,0 +1,1 @@
+🎮 Мультиагентная система разработки мобильных игр на Unity 6 LTS. 6 AI-агентов (Producer, PM, GD, DEV, UIUX, ART) работают вместе через Antigravity IDE. MCP Unity интеграция, GDD workflow, баланс-ревью, дизайн-ревью, LiveOps планирование.
