@@ -13,8 +13,8 @@ from pathlib import Path
 from datetime import datetime
 
 # Base paths
-PROJECT_ROOT = Path(__file__).parent.parent.parent
-BRAIN_DIR = PROJECT_ROOT / ".gemini" / "antigrivity" / "brain"
+PROJECT_ROOT = Path(r"D:\ASTRA\My project")
+BRAIN_DIR = PROJECT_ROOT / ".gemini" / "antigravity" / "brain"
 
 
 class TestBrainFilesStructure:

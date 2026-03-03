@@ -121,28 +121,36 @@ function Run-UnityTests {
 }
 
 function Run-AgentTests {
-    $agentTestDir = Join-Path $PROJECT_ROOT ".agent\tests"
-    
+    $agentTestDir = Join-Path $PSScriptRoot "..\.agent\tests"
+    Write-Host "Agent test dir: $agentTestDir"
+
     if (!(Test-Path $agentTestDir)) {
         Write-Warning "Agent tests directory not found: $agentTestDir"
         return 1
     }
-    
+
+    # Try python, then py (Windows Python launcher)
     $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
+    if (!$pythonCmd) {
+        $pythonCmd = Get-Command py -ErrorAction SilentlyContinue
+    }
+
     if (!$pythonCmd) {
         Write-Warning "Python not found. Skipping agent tests."
         return 0
     }
-    
+
+    Write-Host "Using Python: $($pythonCmd.Source)"
+
     $requirementsFile = Join-Path $agentTestDir "requirements.txt"
     if (Test-Path $requirementsFile) {
         Write-Host "Installing Python dependencies..."
-        & python -m pip install -r $requirementsFile -q
+        & $pythonCmd -m pip install -r $requirementsFile -q
     }
-    
+
     Write-Host "Running pytest..."
-    & python -m pytest $agentTestDir -v --tb=short
-    
+    & $pythonCmd -m pytest $agentTestDir -v --tb=short
+
     return $LASTEXITCODE
 }
 
