@@ -1,0 +1,5 @@
+# Agent Tests Requirements
+# Install with: pip install -r requirements.txt
+
+pytest>=7.0.0
+markdown>=3.4.0

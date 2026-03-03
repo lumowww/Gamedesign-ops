@@ -1,0 +1,16 @@
+{
+    "name": "GAMEDEVGD.Tests",
+    "rootNamespace": "GAMEDEVGD.Tests",
+    "references": [
+        "GUID:58152656-ed4d-4064-b5a8-4981a2f38c3c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "generateAssemblyDefinition": true,
+    "versionDefines": [],
+    "noEngineReferences": false
+}
