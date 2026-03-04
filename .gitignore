@@ -42,3 +42,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
+
+# Unity Tests
+Assets/_Project/Tests/
+Assets/Tests/
+
+# Temporary work directories
+TZ/
+TestResults/
