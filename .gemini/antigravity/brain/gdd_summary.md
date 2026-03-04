@@ -5,18 +5,18 @@
 
 ---
 
-## [PROJECT_NAME] — GDD Summary v[N]
+## GAMEDEVGD — GDD Summary v2.0
 
-**Последнее обновление:** [ДАТА]  
-**GDD версия:** v[N]  
-**Спринт:** [N]  
-**Статус:** [DRAFT / FINAL / IN_PROGRESS]
+**Последнее обновление:** 2026-03-04
+**GDD версия:** v2.0
+**Спринт:** 0 (Инициализация)
+**Статус:** [STATUS:WAITING_FOR_CONCEPT]
 
 ---
 
 ### 🎮 Player Promise
 
-> «Я — [X], который делает [Y] и чувствует [Z]»
+> «Я — геймдизайнер, который создаёт гиперказуальные игры через AI-агентов и чувствует контроль над пайплайном»
 
 ---
 
@@ -24,19 +24,19 @@
 
 | Уровень | Структура | Длительность |
 |---------|-----------|--------------|
-| **Micro** | [Action] → [Feedback] → [Result] | ~[N] сек |
-| **Meta** | [Session end] → [Earn] → [Upgrade] → [New session] | ~[N] мин |
-| **Macro** | [Campaign/Season arc] | ~[N] дней |
+| **Micro** | Идея → Concept → Producer Brief | ~15 мин |
+| **Meta** | Producer Brief → GDD → Sprint Plan → Prototype | ~1-2 недели |
+| **Macro** | Prototype → Soft Launch → LiveOps | ~1-3 месяца |
 
 ---
 
 ### 🎯 Prototype Scope (текущий спринт)
 
 **In scope:**
-- [ ] [Механика 1] — [статус: TODO/WIP/DONE]
-- [ ] [Механика 2] — [статус]
-- [ ] Game Loop (Start/Play/Win/Lose) — [статус]
-- [ ] [N] тестовых уровней
+- [ ] Настройка мультиагентного пайплайна — [статус: DONE]
+- [ ] Интеграция MCP Unity — [статус: DONE]
+- [ ] Создание базовой структуры проекта — [статус: DONE]
+- [ ] GDD v0.1 для первого концепта — [статус: TODO]
 
 **Out of scope (пост-прототип):**
 - [ ] Meta systems
@@ -47,18 +47,20 @@
 
 ### 💰 Economy (кратко)
 
+*Примечание: Экономика будет определена после получения концепта от PRODUCER*
+
 | Валюта | Earn | Spend | Баланс |
 |--------|------|-------|--------|
-| Soft: [название] | ~[N]/сессию | [на что] | [surplus/balanced/deficit] |
-| Hard: [название] | [источник] | [на что] | [surplus/balanced/deficit] |
+| Soft: TBD | TBD | TBD | balanced |
+| Hard: TBD | TBD | TBD | balanced |
 
-**Model:** [F2P / Hybrid / Sub]
+**Model:** Hypercasual (F2P с IAP + Ads)
 
 **Key constants:**
 ```
-SOFT_CAP = [N]
-ENERGY_MAX = [N]
-LEVEL_XP_SCALE = [N]
+SOFT_CAP = TBD
+ENERGY_MAX = TBD
+LEVEL_XP_SCALE = TBD
 ```
 
 ---
@@ -66,26 +68,30 @@ LEVEL_XP_SCALE = [N]
 ### 🎨 For DEV
 
 **Active systems:**
-- [список системы которые сейчас в работе]
+- EventBus (Core) — DONE
+- GameManager (Core) — DONE
+- ObjectPool (Core) — DONE
 
 **ScriptableObjects:**
 | Name | Fields | Purpose |
 |------|--------|---------|
-| [Name]SO | [field1, field2] | [описание] |
+| GameConfigSO | gameName, version, targetFPS | Глобальные настройки игры |
+| LevelConfigSO | levelId, difficulty, timeLimit | Настройки уровня |
 
 **Key scenes:**
-- `gameplay_main` — [описание]
-- `hub_main` — [описание]
+- `Main` — загрузочная сцена
+- `SampleScene` — тестовая сцена
 
 **Analytics events (required):**
 ```
-event_name: [name] | params: [param1, param2]
+event_name: game_start | params: { session_id, timestamp }
+event_name: level_complete | params: { level_id, duration, stars }
 ```
 
 **Performance budget:**
-- Draw calls: < [N]
-- RAM: < [N] MB
-- FPS target: [30/60]
+- Draw calls: < 100
+- RAM: < 200 MB
+- FPS target: 60
 
 ---
 
@@ -94,13 +100,13 @@ event_name: [name] | params: [param1, param2]
 **Active asset requests:**
 | Asset | Type | Size | Deadline | Status |
 |-------|------|------|----------|--------|
-| [name] | sprite | 512x512 | [date] | TODO/WIP/DONE |
+| TBD | TBD | TBD | TBD | TODO |
 
 **Art style TL;DR:**
-- [3 слова]
+- TBD (ожидает концепта от PRODUCER)
 
 **Priority assets (P0):**
-- [список]
+- TBD
 
 ---
 
@@ -109,15 +115,17 @@ event_name: [name] | params: [param1, param2]
 **Active screens:**
 | Screen | Purpose | Status |
 |--------|---------|--------|
-| [name] | [описание] | TODO/WIP/DONE |
+| Main Menu | Навигация | TODO |
+| Gameplay HUD | Игровой интерфейс | TODO |
+| Settings | Настройки | TODO |
 
 **Screen graph TL;DR:**
 ```
-[Splash] → [Menu] → [Gameplay] → [Win/Lose] → [Menu]
+[Splash] → [Main Menu] → [Gameplay] → [Win/Lose] → [Main Menu]
 ```
 
 **UX priority:**
-- [ ] FTUE
+- [x] FTUE (First Time User Experience)
 - [ ] HUD
 - [ ] Meta
 - [ ] Shop
@@ -128,8 +136,8 @@ event_name: [name] | params: [param1, param2]
 
 *Вопросы которые GD ещё не решил — потенциальные блокеры*
 
-- [ ] [Вопрос 1] — нужно решить до: [DATE/TASK]
-- [ ] [Вопрос 2]
+- [ ] Жанр первого проекта — нужно решить до: /concept от PRODUCER
+- [ ] Целевая платформа (iOS/Android) — нужно решить до: Sprint 1
 
 ---
 
@@ -137,9 +145,9 @@ event_name: [name] | params: [param1, param2]
 
 *Полный лог в `decisions_log.md`*
 
-1. [ДАТА] [ID:BLOCK] — [суть решения]
-2. [ДАТА] [ID:BLOCK] — [суть решения]
-3. [ДАТА] [ID:BLOCK] — [суть решения]
+1. 2026-03-04 [ID:INFRA-001] — Создана структура Assets/_Project/ с Core системами
+2. 2026-03-04 [ID:INFRA-002] — decisions_log.md очищен от null-байтов, конвертирован в UTF-8
+3. 2026-03-04 [ID:DOC-001] — Документация обновлена до v2.0 (PRODUCER как точка входа)
 
 ---
 
@@ -147,8 +155,9 @@ event_name: [name] | params: [param1, param2]
 
 | Feature | Status | GDD Block | Sprint | Owner |
 |---------|--------|-----------|--------|-------|
-| [Feature A] | DRAFT/SPEC/DEV/DONE | [ID:...] | [N] | GD/DEV |
-| [Feature B] | DRAFT | [ID:...] | [N+1] | GD |
+| Core Systems | DONE | N/A | 0 | DEV |
+| GDD v0.1 | TODO | N/A | 1 | GD |
+| First Playable | TODO | GDD-001 | 1-2 | DEV |
 
 ---
 
@@ -156,13 +165,13 @@ event_name: [name] | params: [param1, param2]
 
 | Метрика | Target | Current | Status |
 |---------|--------|---------|--------|
-| CPI | < $[N] | [HYPOTHESIS] | ⏳ |
-| D1 Retention | > [N]% | [HYPOTHESIS] | ⏳ |
-| D7 Retention | > [N]% | [HYPOTHESIS] | ⏳ |
-| Session Length | [N]-[N] мин | [HYPOTHESIS] | ⏳ |
+| CPI | < $0.50 | HYPOTHESIS | ⏳ |
+| D1 Retention | > 40% | HYPOTHESIS | ⏳ |
+| D7 Retention | > 15% | HYPOTHESIS | ⏳ |
+| Session Length | 3-5 мин | HYPOTHESIS | ⏳ |
 
 ---
 
-**Последнее обновление:** [ДАТА]  
-**Следующее ревью:** [DATE]  
+**Последнее обновление:** 2026-03-04
+**Следующее ревью:** После получения /concept от PRODUCER
 **Владелец:** GD

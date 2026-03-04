@@ -13,7 +13,8 @@ import pytest
 from pathlib import Path
 
 # Base paths
-PROJECT_ROOT = Path(r"D:\ASTRA\My project")
+# PROJECT_ROOT = Path(__file__).resolve().parents[2]  # .agent/tests/ → РOOT
+PROJECT_ROOT = Path(__file__).resolve().parents[3]  # .agent/tests/workflows/ → ROOT
 WORKFLOWS_DIR = PROJECT_ROOT / ".agent" / "workflows"
 RULES_DIR = PROJECT_ROOT / ".agent" / "rules"
 BRAIN_DIR = PROJECT_ROOT / ".gemini" / "antigravity" / "brain"

@@ -1,8 +1,8 @@
 # PROJECT CONTEXT
 
-**Владелец:** PM  
-**Статус:** ✅ ГОТОВ К РАБОТЕ (v1.0)  
-**Последнее обновление:** 2026-03-03
+**Владелец:** PM
+**Статус:** 🟢 ИНИЦИАЛИЗИРОВАН (v2.0 — готов к /concept)
+**Последнее обновление:** 2026-03-04
 
 ---
 
@@ -11,11 +11,11 @@
 | Параметр | Значение |
 |----------|----------|
 | **Название** | GAMEDEVGD |
-| **Версия** | 1.0 |
+| **Версия** | 2.0 |
 | **Repository** | https://github.com/lumowww/Gamedesign-ops.git |
 | **Дата старта** | 2026-03-02 |
-| **Дата релиза v1.0** | 2026-03-03 |
-| **Статус** | ✅ ИНИЦИАЛИЗИРОВАН |
+| **Дата релиза v2.0** | 2026-03-04 |
+| **Статус** | 🟢 ГОТОВ К РАБОТЕ |
 
 ---
 
@@ -25,12 +25,12 @@
 
 | Workspace | Роль | Статус |
 |-----------|------|--------|
-| PRODUCER | Game Producer | ✅ Готов |
-| PM | Project Manager | ✅ Готов |
-| GD | Game Designer | ✅ Готов |
-| DEV | Unity Lead Dev (Qwen Code) | ✅ Готов |
-| UIUX | UI/UX Designer | ✅ Готов |
-| ART | Art Director | ✅ Готов |
+| PRODUCER | Game Producer | 🟢 Готов (точка входа) |
+| PM | Project Manager | 🟢 Готов |
+| GD | Game Designer | 🟢 Готов |
+| DEV | Unity Lead Dev (Qwen Code) | 🟢 Готов |
+| UIUX | UI/UX Designer | 🟢 Готов |
+| ART | Art Director | 🟢 Готов |
 
 ---
 
@@ -43,7 +43,7 @@
 | **Пакет** | `com.gamelovers.mcp-unity@1.2.0` |
 | **Порт** | 8090 |
 | **AutoStartServer** | true |
-| **AllowRemoteConnections** | true |
+| **AllowRemoteConnections** | false |
 | **RequestTimeoutSeconds** | 10 |
 
 ### Архитектура подключения
@@ -65,8 +65,12 @@ Unity Editor (McpUnityServer)
 
 ```json
 {
-  "command": "node",
-  "args": ["d:/ASTRA/My project/Library/PackageCache/com.gamelovers.mcp-unity@e4b7e74ad052/Server~/build/index.js"]
+  "mcpServers": {
+    "unity": {
+      "command": "node",
+      "args": ["d:/ASTRA/My project/Library/PackageCache/com.gamelovers.mcp-unity@1.2.0/Server~/build/index.js"]
+    }
+  }
 }
 ```
 
@@ -94,9 +98,11 @@ Unity Editor (McpUnityServer)
 
 ### Для нового проекта:
 
-1. **PRODUCER-Workspace:** `/concept [описание игры]`
-2. **PM-Workspace:** `/new-project` (после получения Producer Brief)
-3. **DEV-Workspace:** Qwen Code автоматически определит роль и задачи
+1. **PRODUCER-Workspace:** `/concept [описание игры]` ← **ТОЧКА ВХОДА**
+2. **PRODUCER:** Создаёт Producer Brief + Project Pipeline
+3. **PM-Workspace:** `/new-project` (после получения Producer Brief)
+4. **GD-Workspace:** Создаёт GDD v0.1
+5. **DEV-Workspace:** Qwen Code автоматически определит роль и задачи
 
 ### Для продолжения работы:
 
@@ -111,3 +117,4 @@ Unity Editor (McpUnityServer)
 - [ ] Запустить `/concept` в PRODUCER-Workspace для старта нового проекта
 - [ ] Получить Producer Brief и PROJECT_PIPELINE
 - [ ] PM создаст Sprint 0 в task_board.md
+- [ ] GD создаст GDD v0.1

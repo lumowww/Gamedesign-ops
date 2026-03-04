@@ -1,8 +1,8 @@
-# GAMEDEVGD TEAM — AGENTS.md v1.0
+# GAMEDEVGD TEAM — AGENTS.md v2.0
 
-**Проект:** GAMEDEVGD  
-**Версия:** 1.0  
-**Дата обновления:** 2026-03-03
+**Проект:** GAMEDEVGD
+**Версия:** 2.0
+**Дата обновления:** 2026-03-04
 
 ---
 
@@ -32,7 +32,7 @@
 
 | Workspace          | Роль            | Rule-файл                 | Точка входа               |
 | :----------------- | :-------------- | :------------------------ | :------------------------ |
-| PRODUCER-Workspace | **Game Producer** | `.agent/rules/06_PRODUCER.md` | ← v2.0 (GD Handoff)       |
+| PRODUCER-Workspace | **Game Producer** | `.agent/rules/06_PRODUCER.md` | ← v2.0 (ТОЧКА ВХОДА)      |
 | PM-Workspace       | Project Manager | `.agent/rules/01_PM.md`   | ← v2.0 (GD-Aware)         |
 | GD-Workspace       | Game Designer   | `.agent/rules/02_GD.md`   | ← v2.0 (Extended GDD)     |
 | DEV-Workspace      | Unity Lead Dev  | `.agent/rules/03_DEV.md`  | ← v2.0 (GDD-Aware)        |
@@ -49,11 +49,12 @@
 
 ### Алгоритм запуска нового проекта
 
-1. **Пользователь → PRODUCER:** `/concept [описание игры]`
+1. **Пользователь → PRODUCER:** `/concept [описание игры]` ← **ТОЧКА ВХОДА**
 2. **PRODUCER:** Анализ концепта, marketability, feasibility check
 3. **PRODUCER:** Создание `docs/PRODUCER_BRIEF.md` + `docs/PROJECT_PIPELINE.md`
 4. **PRODUCER → PM:** Передача брифа
 5. **PM:** Создание задач в `task_board.md`, запуск Sprint 0
+6. **GD:** Создание GDD v0.1 (только после GDD начинается разработка)
 
 ---
 
@@ -104,8 +105,9 @@ graph TD
 | `asset_registry.md`  | ART/UIUX  | Реестр всех ассетов                    |
 | `decisions_log.md`   | Все агенты | Лог решений (append-only)              |
 
-**Артефакты и планы:** `.agent/artifacts/`  
+**Артефакты и планы:** `.agent/artifacts/`
 **Продюсерские документы:** `docs/`
+**A2A артефакты:** `.agent/artifacts/GD_to_[ROLE]_[TASK-ID].md`
 
 ---
 
@@ -123,6 +125,11 @@ graph TD
 | `/resume`                 | Все агенты              | Восстановление контекста       |
 | `/asset-request [тип] [описание]` | Все агенты              | Запрос ассета у ART            |
 | `/qwen-autonomous [TASK-ID]` | Qwen Code               | Автономный режим DEV           |
+| `/feature-spec [название]` | GD                      | Написать feature spec + ТЗ     |
+| `/balance-review`         | GD                      | Аудит экономики                |
+| `/design-review [TASK-ID]` | GD                      | Ревью реализации на GDD        |
+| `/liveops-plan [тип]`     | GD                      | Спроектировать LiveOps         |
+| `/concept-gd`             | GD                      | Создать GDD v0.1               |
 
 ---
 
@@ -139,8 +146,8 @@ graph TD
 
 ## 📋 PM — Project Manager v2.0
 
-**Rule-файл:** `.agent/rules/01_PM.md`  
-**Версия:** 2.0 (GD-Aware) | Обновлено: 2026-03-03
+**Rule-файл:** `.agent/rules/01_PM.md`
+**Версия:** 2.0 (GD-Aware) | Обновлено: 2026-03-04
 
 ### Ключевые изменения v2
 
@@ -164,9 +171,10 @@ graph TD
 
 ## 🎮 GD — Game Designer Generalist
 
-**Rule-файл:** `.agent/rules/02_GD.md`  
-**Workspace:** GD-Workspace (Claude 4.6 / 4.5 Extended Thinking)  
+**Rule-файл:** `.agent/rules/02_GD.md`
+**Workspace:** GD-Workspace (Claude 4.6 / 4.5 Extended Thinking)
 **Владеет:** `docs/GDD/`, `brain/gdd_summary.md`
+**Обновлено:** 2026-03-04
 
 ### Что делает
 
@@ -224,8 +232,12 @@ graph TD
 
 ```json
 {
-  "command": "node",
-  "args": ["d:/ASTRA/My project/Library/PackageCache/com.gamelovers.mcp-unity@e4b7e74ad052/Server~/build/index.js"]
+  "mcpServers": {
+    "unity": {
+      "command": "node",
+      "args": ["d:/ASTRA/My project/Library/PackageCache/com.gamelovers.mcp-unity@1.2.0/Server~/build/index.js"]
+    }
+  }
 }
 ```
 
@@ -259,8 +271,8 @@ graph TD
 
 | Параметр | Значение |
 | --- | --- |
-| **Проект** | GAMEDEVGD v1.0 |
-| **Статус** | ✅ ГОТОВ К РАБОТЕ |
+| **Проект** | GAMEDEVGD v2.0 |
+| **Статус** | 🟢 ГОТОВ К РАБОТЕ |
 | **MCP Unity** | ✅ ПОДКЛЮЧЁН |
 | **Следующий шаг** | Запустить `/concept` в PRODUCER-Workspace |
 

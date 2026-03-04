@@ -13,13 +13,14 @@ from pathlib import Path
 from datetime import datetime
 
 # Base paths
-PROJECT_ROOT = Path(r"D:\ASTRA\My project")
+# PROJECT_ROOT = Path(__file__).resolve().parents[2]  # .agent/tests/ → РOOT
+PROJECT_ROOT = Path(__file__).resolve().parents[3]  # .agent/tests/brain/ → ROOT
 BRAIN_DIR = PROJECT_ROOT / ".gemini" / "antigravity" / "brain"
 
 
 class TestBrainFilesStructure:
     """Tests for brain file structure."""
-    
+
     @pytest.fixture
     def brain_files(self):
         """Get all brain markdown files."""
@@ -27,7 +28,17 @@ class TestBrainFilesStructure:
             BRAIN_DIR.mkdir(parents=True, exist_ok=True)
             pytest.skip("Brain directory created (was missing)")
         return list(BRAIN_DIR.glob("*.md"))
-    
+
+    def test_brain_files_utf8_encoding(self, brain_files):
+        """All brain files should be UTF-8 without BOM."""
+        for bf in brain_files:
+            content = bf.read_bytes()
+            assert not content.startswith(b'\xef\xbb\xbf'), f"UTF-8 BOM found in {bf.name}"
+            try:
+                content.decode('utf-8')
+            except UnicodeDecodeError:
+                pytest.fail(f"{bf.name} is not valid UTF-8")
+
     def test_brain_directory_exists(self):
         """Brain directory should exist."""
         assert BRAIN_DIR.exists(), "Brain directory not found"
@@ -124,7 +135,18 @@ class TestTaskBoard:
 
 class TestGDDSummary:
     """Tests for gdd_summary.md content."""
-    
+
+    def test_gdd_summary_not_placeholder(self):
+        """gdd_summary.md should contain real data, not templates."""
+        gdd_file = BRAIN_DIR / "gdd_summary.md"
+        if not gdd_file.exists():
+            pytest.skip("gdd_summary.md does not exist")
+
+        content = gdd_file.read_text(encoding='utf-8')
+        placeholders = ['[PROJECT_NAME]', '[Р"Рў?]', '[N]', '[STATUS:WAITING']
+        for placeholder in placeholders:
+            assert placeholder not in content, f"gdd_summary.md contains placeholder: {placeholder}"
+
     def test_gdd_summary_has_core_loop(self):
         """gdd_summary.md should describe core loop."""
         gdd_file = BRAIN_DIR / "gdd_summary.md"
@@ -148,7 +170,32 @@ class TestGDDSummary:
 
 class TestDecisionsLog:
     """Tests for decisions_log.md content."""
-    
+
+    def test_decisions_log_no_null_bytes(self):
+        """decisions_log.md should not contain null bytes."""
+        log_file = BRAIN_DIR / "decisions_log.md"
+        if not log_file.exists():
+            pytest.skip("decisions_log.md does not exist")
+
+        content = log_file.read_bytes()
+        assert b'\x00' not in content, "Null bytes found in decisions_log.md"
+
+    def test_decisions_log_utf8_encoding(self):
+        """decisions_log.md should be valid UTF-8 without BOM."""
+        log_file = BRAIN_DIR / "decisions_log.md"
+        if not log_file.exists():
+            pytest.skip("decisions_log.md does not exist")
+
+        # Read as bytes and check for BOM
+        content = log_file.read_bytes()
+        assert not content.startswith(b'\xef\xbb\xbf'), "UTF-8 BOM found"
+
+        # Verify valid UTF-8
+        try:
+            content.decode('utf-8')
+        except UnicodeDecodeError:
+            pytest.fail("decisions_log.md is not valid UTF-8")
+
     def test_decisions_log_is_append_only(self):
         """decisions_log.md should follow append-only pattern."""
         log_file = BRAIN_DIR / "decisions_log.md"

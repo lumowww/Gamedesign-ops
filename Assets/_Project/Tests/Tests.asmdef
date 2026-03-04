@@ -2,15 +2,21 @@
     "name": "GAMEDEVGD.Tests",
     "rootNamespace": "GAMEDEVGD.Tests",
     "references": [
-        "GUID:58152656-ed4d-4064-b5a8-4981a2f38c3c"
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
     "autoReferenced": true,
-    "generateAssemblyDefinition": true,
-    "versionDefines": [],
-    "noEngineReferences": false
+    "generateAssemblyInfo": false,
+    "editorReferences": [],
+    "isEditorOnly": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ]
 }
