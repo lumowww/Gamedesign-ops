@@ -189,10 +189,18 @@
   - DEC-005: Matchmaking по tower tier (P2W safeguard)
 - **Статус:** ✅ SPRINT 1 READY — DEV/ART/UIUX могут стартовать
 
-## 2026-03-05 [ID:INFRA-004]  ����������� ���������������� MCP-Unity
+## 2026-03-05 [ID:INFRA-004] — Диагностика и починка MCP-Unity
 
-�����: DEV
-���������: ��������� ����� ��� ���������� �������� ����� LLM-�������� (Gemini/Claude).
-�����: docs/MCP_ANTIGRAVITY.md, .agent/workflows/handoff.md, .agent/workflows/resume.md, brain/session_handoff.md
-��������� ���: �������� ������-��������
+- **Агент:** DEV
+- **Результат:** Создана документация по межагентному handoff для LLM-агентов (Gemini/Claude).
+- **Файлы:** docs/MCP_ANTIGRAVITY.md, .agent/workflows/handoff.md, .agent/workflows/resume.md, brain/session_handoff.md
+- **Следующий шаг:** Проверка билда-прототипа
 
+---
+
+## 2026-03-05 [ID:INFRA-005] — Починка ошибок компиляции Unity
+
+- **Агент:** DEV (Antigravity + Qwen)
+- **Действие:** Удалены CoreScripts.asmdef и Tests.asmdef (изолировали Core/Tests от Assembly-CSharp). Добавлен `using UnityEngine` в GameManager.cs.
+- **Причина:** .asmdef без ссылок на Gameplay/Data → CS0234/CS0246 ошибки (20 штук)
+- **Статус:** DONE

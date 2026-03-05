@@ -25,14 +25,14 @@ namespace GAMEDEVGD.Tests
         [Test]
         public void InitialState_IsMenu()
         {
-            Assert.AreEqual(GameManager.GameState.Menu, _gameManager.CurrentState);
+            Assert.AreEqual(GameState.Menu, _gameManager.CurrentState);
         }
 
         [Test]
         public void StartGame_ChangesToPlaying()
         {
             _gameManager.StartGame();
-            Assert.AreEqual(GameManager.GameState.Playing, _gameManager.CurrentState);
+            Assert.AreEqual(GameState.Playing, _gameManager.CurrentState);
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace GAMEDEVGD.Tests
         {
             _gameManager.StartGame();
             _gameManager.PauseGame();
-            Assert.AreEqual(GameManager.GameState.Paused, _gameManager.CurrentState);
+            Assert.AreEqual(GameState.Paused, _gameManager.CurrentState);
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace GAMEDEVGD.Tests
             _gameManager.StartGame();
             _gameManager.PauseGame();
             _gameManager.ResumeGame();
-            Assert.AreEqual(GameManager.GameState.Playing, _gameManager.CurrentState);
+            Assert.AreEqual(GameState.Playing, _gameManager.CurrentState);
         }
 
         [Test]

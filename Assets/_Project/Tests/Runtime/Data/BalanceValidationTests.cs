@@ -75,7 +75,7 @@ namespace GAMEDEVGD.Tests.Data
             {
                 Assert.IsTrue(eventName.Contains("_"), 
                     $"Event name '{eventName}' should use snake_case convention");
-                Assert.IsLowerCase(eventName.Replace("_", ""), 
+                Assert.AreEqual(eventName.Replace("_", "").ToLower(), eventName.Replace("_", ""), 
                     $"Event name '{eventName}' should be lowercase");
             }
         }

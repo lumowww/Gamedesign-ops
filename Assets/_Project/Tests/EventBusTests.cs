@@ -1,3 +1,4 @@
+using System;
 using GAMEDEVGD.Core;
 using NUnit.Framework;
 using UnityEngine;
@@ -22,7 +23,7 @@ namespace GAMEDEVGD.Tests
         [TearDown]
         public void TearDown()
         {
-            Object.DestroyImmediate(_eventBus.gameObject);
+            UnityEngine.Object.DestroyImmediate(_eventBus.gameObject);
         }
 
         [Test]
