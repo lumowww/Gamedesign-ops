@@ -10,10 +10,18 @@
 
 | TASK-ID | Агент | Название | Статус | Приоритет | Блокирует |
 |---|---|---|---|---|---|
-| DEV-S1-001 | DEV | Code Phase: PvE Тропа-режим | ✅ DONE | P0 | ART-S1-001 |
-| ART-S1-001 | ART | Placeholder-контент Sprint 1 | ✅ DONE | P0 | DEV-S1-001 |
-| UIUX-S1-001 | UIUX | 5 экранов Sprint 1 | 🔵 TODO | P0 | DEV-S1-001 |
-| DEV-S1-005 | DEV | Highlight-система одинаковых башен | 🔵 TODO | P1 | DEV-S1-001 |
+| DEV-S1-001 | DEV | Code Phase: PvE Тропа-режим | ✅ DONE | P0 | — |
+| ART-S1-001 | ART | Placeholder-контент Sprint 1 | ✅ DONE | P0 | — |
+| UIUX-S1-001 | UIUX | 5 экранов Sprint 1 | 🟡 IN_PROGRESS | P0 | — |
+| DEV-S1-005 | DEV | Highlight-система одинаковых башен | 🔵 TODO | P1 | UIUX-S1-001 |
+
+### DEV-S1-001 Deliverables (Completed)
+**Core Systems:** `GameManager.cs`, `EventBus.cs`, `ObjectPool.cs` (+ tests)
+**Gameplay:** `Tower.cs`, `TowerDragger.cs`, `TowerAttack.cs`, `MergeGrid.cs`, `GridCell.cs`
+**Systems:** `SpawnManager.cs`, `PathFollower.cs`, `ScoreSystem.cs`, `CreepHealth.cs`
+**Data:** `GameConfigSO.cs`, `TowerConfigSO.cs`, `WaveConfigSO.cs`
+**Editor:** `PlaceholderArtGenerator.cs` (3D model generator)
+**A2A:** `DEV_to_TEAM_DragAndDrop.md` (merge mechanic: Drag&Drop instead of click-to-merge)
 
 ## Sprint 0 — Completed (GD)
 
