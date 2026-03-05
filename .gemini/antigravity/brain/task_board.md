@@ -1,5 +1,7 @@
 # AiW — Task Board
+
 # Файл: .gemini/antigravity/brain/task_board.md
+
 # Sprint 1 | [STATUS:ACTIVE]
 
 ---
@@ -8,12 +10,13 @@
 
 | TASK-ID | Агент | Название | Статус | Приоритет | Блокирует |
 |---|---|---|---|---|---|
-| DEV-S1-001 | DEV | PvE Тропа-режим Android APK | 🔵 TODO | P0 | — |
-| ART-S1-001 | ART | Placeholder-контент Sprint 1 | 🔵 TODO | P0 | DEV-S1-001 |
+| DEV-S1-001 | DEV | Code Phase: PvE Тропа-режим | ✅ DONE | P0 | ART-S1-001 |
+| ART-S1-001 | ART | Placeholder-контент Sprint 1 | ✅ DONE | P0 | DEV-S1-001 |
 | UIUX-S1-001 | UIUX | 5 экранов Sprint 1 | 🔵 TODO | P0 | DEV-S1-001 |
 | DEV-S1-005 | DEV | Highlight-система одинаковых башен | 🔵 TODO | P1 | DEV-S1-001 |
 
 ## Sprint 0 — Completed (GD)
+
 | TASK-ID | Агент | Название | Статус |
 |---|---|---|---|
 | GD-S0-001 | GD | Concept Intake + Go/No-Go | ✅ DONE |
@@ -26,6 +29,7 @@
 | GD-S0-008 | GD | Free Asset List Sprint 1 | ✅ DONE |
 
 ## Backlog (Sprint 2+)
+
 - DEV-S2-001: Волна-режим (bubble-shooter pathfinding)
 - DEV-S2-002: Герой игрока
 - DEV-S2-003: 5 типов башен

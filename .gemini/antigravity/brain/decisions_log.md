@@ -1,4 +1,4 @@
-# DECISIONS LOG
+﻿# DECISIONS LOG
 
 Все агенты добавляют записи в КОНЕЦ файла (append-only)
 
@@ -145,6 +145,21 @@
 
 ---
 
+## 2026-03-05 [ID:ART-S1-001] — Tower Defense Placeholder Art
+
+- **Агент:** ART
+- **Результат:** Так как Unity MCP отключен, сгенерированы 2D UI-иконки (добавлены в .gemini directory) + написан скрипт `Assets/Editor/PlaceholderArtGenerator.cs`, который в 1 клик сгенерирует все нужные 3D-модели (Башни 1-3 уровня, крипы, тайлы грида) в цветах из GDD.
+- **Следующий шаг:** UIUX должен сверстать экраны, затем PM/DEV собирает сцену.
+
+---
+
+## 2026-03-05 [ID:DEV-S1-001] — Tower Defense MVP (Code Phase)
+
+- **Агент:** DEV
+- **Результат:** Написаны все C#-классы для Sprint 1 MVP (П-образная тропа, Drag&Drop Merge механика, Боевка, Экономика, Win/Lose условия, Analytics Events).
+- **Файлы:** `Assets/_Project/Scripts/Gameplay/*.cs`, `Assets/_Project/Scripts/Data/*.cs`
+- **Следующий шаг:** Сборка сцены MVP (ожидаем префабы башен от ART)
+
 ## 2026-03-05 [ID:SPRINT0-001] — AiW Sprint 0 GDD Package DEPLOYED
 
 - **Агент:** GD
@@ -175,7 +190,9 @@
 - **Статус:** ✅ SPRINT 1 READY — DEV/ART/UIUX могут стартовать
 
 ## 2026-03-05 [ID:INFRA-004]  ����������� ���������������� MCP-Unity
+
 �����: DEV
 ���������: ��������� ����� ��� ���������� �������� ����� LLM-�������� (Gemini/Claude).
 �����: docs/MCP_ANTIGRAVITY.md, .agent/workflows/handoff.md, .agent/workflows/resume.md, brain/session_handoff.md
 ��������� ���: �������� ������-��������
+

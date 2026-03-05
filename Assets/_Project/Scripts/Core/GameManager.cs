@@ -1,4 +1,5 @@
-using UnityEngine;
+using GAMEDEVGD.Gameplay;
+using GAMEDEVGD.Data;
 
 namespace GAMEDEVGD.Core
 {
@@ -41,6 +42,9 @@ namespace GAMEDEVGD.Core
         /// </summary>
         public static GameManager Instance => _instance;
 
+        [Header("Config")]
+        public GameConfigSO gameConfig;
+
         [SerializeField] private GameState _currentState = GameState.None;
 
         /// <summary>Текущее состояние игры.</summary>
@@ -52,6 +56,10 @@ namespace GAMEDEVGD.Core
         /// <summary>Игра на паузе?</summary>
         public bool IsPaused => _currentState == GameState.Paused;
 
+        private int _escapedCreepsCount = 0;
+        private int _wavesCompleted = 0;
+        private float _sessionStartTime;
+
         private void Awake()
         {
             if (_instance != null && _instance != this)
@@ -61,6 +69,45 @@ namespace GAMEDEVGD.Core
             }
             _instance = this;
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void OnEnable()
+        {
+            EventBus.Instance.Subscribe<CreepEscapedEvent>(OnCreepEscaped);
+            EventBus.Instance.Subscribe<WaveCompletedEvent>(OnWaveCompleted);
+        }
+
+        private void OnDisable()
+        {
+            if (EventBus.Instance != null)
+            {
+                EventBus.Instance.Unsubscribe<CreepEscapedEvent>(OnCreepEscaped);
+                EventBus.Instance.Unsubscribe<WaveCompletedEvent>(OnWaveCompleted);
+            }
+        }
+
+        private void OnCreepEscaped(CreepEscapedEvent evt)
+        {
+            if (!IsPlaying || gameConfig == null) return;
+
+            _escapedCreepsCount++;
+            if (_escapedCreepsCount >= gameConfig.maxEscapedCreeps)
+            {
+                Debug.Log($"[GameManager] Defeat! {_escapedCreepsCount} creeps escaped.");
+                EndGame(false);
+            }
+        }
+
+        private void OnWaveCompleted(WaveCompletedEvent evt)
+        {
+            if (!IsPlaying || gameConfig == null) return;
+
+            _wavesCompleted++;
+            if (_wavesCompleted >= gameConfig.totalWavesToWin)
+            {
+                Debug.Log($"[GameManager] Victory! {_wavesCompleted} waves completed.");
+                EndGame(true);
+            }
         }
 
         private void Start()
@@ -86,6 +133,14 @@ namespace GAMEDEVGD.Core
                 OldState = oldState,
                 NewState = newState
             });
+
+            if (newState == GameState.Playing)
+            {
+                _sessionStartTime = Time.time;
+                _wavesCompleted = 0;
+                _escapedCreepsCount = 0;
+                EventBus.Instance.Publish(new SessionStartEvent());
+            }
         }
 
         /// <summary>Начать игру (Menu/GameOver → Playing).</summary>
@@ -106,7 +161,14 @@ namespace GAMEDEVGD.Core
         }
 
         /// <summary>Завершить игру (Playing → GameOver).</summary>
-        public void EndGame() => ChangeState(GameState.GameOver);
+        public void EndGame(bool isWin)
+        {
+            ChangeState(GameState.GameOver);
+            
+            float sessionDuration = Time.time - _sessionStartTime;
+            EventBus.Instance.Publish(new GameOverEvent { IsWin = isWin, WavesCompleted = _wavesCompleted });
+            EventBus.Instance.Publish(new SessionEndEvent { DurationSec = sessionDuration, WavesCompleted = _wavesCompleted });
+        }
 
         /// <summary>Вернуться в меню (→ Menu).</summary>
         public void ReturnToMenu() => ChangeState(GameState.Menu);
