@@ -133,3 +133,49 @@
 - **Причина:** Файл был повреждён null-байтами (UCS-2 мусор) и Mojibake (двойная перекодировка UTF-8 → CP1251 → UTF-8)
 - **Действие:** Восстановлены все 10 исторических записей из контекста проекта, добавлены записи аудита
 - **Статус:** DONE
+
+---
+
+## 2026-03-05 [ID:INFRA-003] — Принудительная синхронизация v2.0
+
+- **Агент:** DEV
+- **Результат:** Правила и воркфлоу в .agent/ принудительно обновлены из TZ/0303. Корень проекта очищен от мусора (mnt/, node_modules/ и др.).
+- **Файлы:** .agent/rules/*.md, .agent/workflows/*.md
+- **Следующий шаг:** Ожидание /concept от PRODUCER
+
+---
+
+## 2026-03-05 [ID:SPRINT0-001] — AiW Sprint 0 GDD Package DEPLOYED
+
+- **Агент:** GD
+- **Действие:** Полное развёртывание GDD-пакета Sprint 0 v0.1 (Alien in Waders)
+- **Артефакты созданы:**
+  - **Brain files:**
+    - `.gemini/antigravity/brain/gdd_summary.md` — GDD сводка для агентов
+    - `.gemini/antigravity/brain/project_context.md` — контекст проекта
+    - `.gemini/antigravity/brain/task_board.md` — доска задач Sprint 1
+  - **Документация:**
+    - `docs/intake/AiW_concept_intake.md` — Concept Intake + Go/No-Go ✅
+    - `docs/concepts/AiW_one_pager_v0.1.md` — One Page Concept (11 блоков) ✅
+    - `docs/GDD/sections/AiW_GDD_2.0_CoreLoop.md` — Core Loops (micro/meta/macro) ✅
+    - `docs/GDD/AiW_design_heuristics_audit.md` — Design Heuristics Audit (9 Rules + 12 Tricks) ✅
+    - `docs/tech/AiW_mobile_constraints_v0.1.md` — Unity Mobile Checklist ✅
+    - `docs/GDD/sections/AiW_GDD_2.2_Towers_EntityMatrix.md` — Tower Entity Matrix (15 башен) ✅
+    - `docs/assets/AiW_free_asset_list_Sprint1.md` — Free Asset List Sprint 1 ✅
+  - **ТЗ для агентов:**
+    - `docs/agents/TZ_DEV_Sprint1_MVP.md` — ТЗ для DEV (Core системы, SO, analytics) ✅
+    - `docs/agents/TZ_ART_Sprint1_MVP.md` — ТЗ для ART (placeholder ассеты) ✅
+    - `docs/agents/TZ_UIUX_Sprint1_MVP.md` — ТЗ для UIUX (5 экранов UI) ✅
+- **Ключевые решения (DEC-001..005):**
+  - DEC-001: Sprint 1 = только Тропа-режим (Волна = Sprint 2)
+  - DEC-002: Sprint 1 = 2 башни T-001 + T-002
+  - DEC-003: Realtime PvP → async/bot до Этапа 4
+  - DEC-004: Арт Random Dice не использовать
+  - DEC-005: Matchmaking по tower tier (P2W safeguard)
+- **Статус:** ✅ SPRINT 1 READY — DEV/ART/UIUX могут стартовать
+
+## 2026-03-05 [ID:INFRA-004]  ����������� ���������������� MCP-Unity
+�����: DEV
+���������: ��������� ����� ��� ���������� �������� ����� LLM-�������� (Gemini/Claude).
+�����: docs/MCP_ANTIGRAVITY.md, .agent/workflows/handoff.md, .agent/workflows/resume.md, brain/session_handoff.md
+��������� ���: �������� ������-��������

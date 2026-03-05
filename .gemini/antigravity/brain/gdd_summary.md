@@ -1,177 +1,84 @@
-# GDD SUMMARY (EXTENDED — для GD-Workspace)
+# AiW — GDD Summary (Brain File)
 # Файл: .gemini/antigravity/brain/gdd_summary.md
-# ВЛАДЕЛЕЦ: GD — обновляет после каждой версии GDD и каждой завершённой задачи
-# Лимит: ~500 слов (оптимально для вставки в контекст агента)
+# Владелец: GD | Обновлён: Sprint 0
+# [STATUS:DRAFT]
 
 ---
 
-## GAMEDEVGD — GDD Summary v2.0
-
-**Последнее обновление:** 2026-03-04
-**GDD версия:** v2.0
-**Спринт:** 0 (Инициализация)
-**Статус:** [STATUS:WAITING_FOR_CONCEPT]
-
----
-
-### 🎮 Player Promise
-
-> «Я — геймдизайнер, который создаёт гиперказуальные игры через AI-агентов и чувствует контроль над пайплайном»
+## Project Snapshot
+- **Title:** Alien in Waders (AiW)
+- **Genre:** Hybrid-casual Tower Defense + Merge
+- **Platform:** Android (primary), iOS | Unity 6 LTS + URP
+- **Sprint:** Sprint 0 → Sprint 1 (4 недели) | Android тестовый билд
+- **GDD Version:** v0.1 DRAFT
 
 ---
 
-### 🔄 Core Loop
-
-| Уровень | Структура | Длительность |
-|---------|-----------|--------------|
-| **Micro** | Идея → Concept → Producer Brief | ~15 мин |
-| **Meta** | Producer Brief → GDD → Sprint Plan → Prototype | ~1-2 недели |
-| **Macro** | Prototype → Soft Launch → LiveOps | ~1-3 месяца |
+## Player Promise
+> «Я — тактик-командующий, который строит огневые рубежи из инопланетного оружия, сливая их в монстров разрушения — и чувствую азарт хаоса под контролем.»
 
 ---
 
-### 🎯 Prototype Scope (текущий спринт)
-
-**In scope:**
-- [ ] Настройка мультиагентного пайплайна — [статус: DONE]
-- [ ] Интеграция MCP Unity — [статус: DONE]
-- [ ] Создание базовой структуры проекта — [статус: DONE]
-- [ ] GDD v0.1 для первого концепта — [статус: TODO]
-
-**Out of scope (пост-прототип):**
-- [ ] Meta systems
-- [ ] Монетизация
-- [ ] LiveOps
+## Core Loop (TL;DR)
+**Micro:** Спаунить башню → ждать волну → сливать две одинаковых → новый тип
+**Meta:** Выжить матч → получить шарды → апгрейд колоды → следующий матч сложнее
+**Macro:** Открыть 15 башен → PvP рейтинг → Battle Pass → сезонный контент
 
 ---
 
-### 💰 Economy (кратко)
-
-*Примечание: Экономика будет определена после получения концепта от PRODUCER*
-
-| Валюта | Earn | Spend | Баланс |
-|--------|------|-------|--------|
-| Soft: TBD | TBD | TBD | balanced |
-| Hard: TBD | TBD | TBD | balanced |
-
-**Model:** Hypercasual (F2P с IAP + Ads)
-
-**Key constants:**
-```
-SOFT_CAP = TBD
-ENERGY_MAX = TBD
-LEVEL_XP_SCALE = TBD
-```
+## Sprint 1 Scope (MVP)
+- ✅ PvE Тропа-режим (П-образный path, фиксированный)
+- ✅ 2 башни: T-001 Incinerator (Fire AoE) + T-002 Cryo-Cannon (Ice CC)
+- ✅ Merge-механика: 2 башни Lv N → 1 башня Lv N+1 (cap Lv3 в Sprint 1)
+- ✅ 10 волн, 2 типа крипов (Корабль-1, Корабль-2)
+- ✅ ScoreSystem: очки → трата на спаун
+- ✅ Win/Lose conditions + Pause
+- ❌ Волна-режим — Sprint 2
+- ❌ Герои, боссы, метагейм, IAP — Sprint 2+
 
 ---
 
-### 🎨 For DEV
-
-**Active systems:**
-- EventBus (Core) — DONE
-- GameManager (Core) — DONE
-- ObjectPool (Core) — DONE
-
-**ScriptableObjects:**
-| Name | Fields | Purpose |
-|------|--------|---------|
-| GameConfigSO | gameName, version, targetFPS | Глобальные настройки игры |
-| LevelConfigSO | levelId, difficulty, timeLimit | Настройки уровня |
-
-**Key scenes:**
-- `Main` — загрузочная сцена
-- `SampleScene` — тестовая сцена
-
-**Analytics events (required):**
-```
-event_name: game_start | params: { session_id, timestamp }
-event_name: level_complete | params: { level_id, duration, stars }
-```
-
-**Performance budget:**
-- Draw calls: < 100
-- RAM: < 200 MB
-- FPS target: 60
+## Key Decisions (Sprint 0)
+| ID | Решение |
+|---|---|
+| DEC-001 | Sprint 1 = только Тропа-режим |
+| DEC-002 | Sprint 1 = 2 башни (не 15) |
+| DEC-003 | Realtime PvP → async/bot |
+| DEC-004 | Арт Random Dice не использовать |
+| DEC-005 | Matchmaking по tower tier (P2W safeguard) |
 
 ---
 
-### 🖼️ For ART
+## For DEV
+- Active systems Sprint 1: SpawnManager, MergeGrid, ScoreSystem, PathFollower, GameManager
+- TowerConfig SO: type(FIRE/CRYO), mergeLevel(1-3), damage, attackRate, range, spawnCost
+- WaveConfig SO: waveNumber, creepCount, creepType, spawnInterval
+- Analytics events: session_start, wave_started, wave_completed, tower_spawned, tower_merged, game_over
+- Performance: ≤100 draw calls, ≥30 FPS на Samsung Galaxy A54
+- Читать: `docs/agents/TZ_DEV_Sprint1_MVP.md`
 
-**Active asset requests:**
-| Asset | Type | Size | Deadline | Status |
-|-------|------|------|----------|--------|
-| TBD | TBD | TBD | TBD | TODO |
+## For ART
+- Sprint 1 assets: 2 башни × 3 Lv + 2 типа крипов + grid + 3 particle FX + merge VFX
+- Atlas: всё в 1024×1024, URP Simple Lit
+- Polycount: башня ≤800 tri (Lv3), крип ≤300 tri
+- Стиль: sci-fi top-down, яркий, cartoon-light. Ref: https://pin.it/2HReRzicu
+- Читать: `docs/agents/TZ_ART_Sprint1_MVP.md`
 
-**Art style TL;DR:**
-- TBD (ожидает концепта от PRODUCER)
+## For UIUX
+- Sprint 1 экраны: MainMenu, GameHUD, WinScreen, LoseScreen, PauseOverlay
+- Portrait only, touch target ≥48dp, spawn кнопки в нижней 1/5 экрана
+- Readable failure: Lose screen показывает номер волны
+- Читать: `docs/agents/TZ_UIUX_Sprint1_MVP.md`
 
-**Priority assets (P0):**
-- TBD
-
----
-
-### 📱 For UIUX
-
-**Active screens:**
-| Screen | Purpose | Status |
-|--------|---------|--------|
-| Main Menu | Навигация | TODO |
-| Gameplay HUD | Игровой интерфейс | TODO |
-| Settings | Настройки | TODO |
-
-**Screen graph TL;DR:**
-```
-[Splash] → [Main Menu] → [Gameplay] → [Win/Lose] → [Main Menu]
-```
-
-**UX priority:**
-- [x] FTUE (First Time User Experience)
-- [ ] HUD
-- [ ] Meta
-- [ ] Shop
+## For PM
+- KPI Sprint 1: crash-free ≥99%, FPS ≥30 на ref device, merge работает
+- Открыть задачи: DEV-S1-001, ART-S1-001, UIUX-S1-001
+- Roadmap: Sprint 2 = Волна-режим + 5 башен + 1 герой
+- Читать: `docs/concepts/AiW_one_pager_v0.1.md`
 
 ---
 
-### ⚠️ Open Design Questions
-
-*Вопросы которые GD ещё не решил — потенциальные блокеры*
-
-- [ ] Жанр первого проекта — нужно решить до: /concept от PRODUCER
-- [ ] Целевая платформа (iOS/Android) — нужно решить до: Sprint 1
-
----
-
-### 📌 Recent Decisions (последние 3)
-
-*Полный лог в `decisions_log.md`*
-
-1. 2026-03-04 [ID:INFRA-001] — Создана структура Assets/_Project/ с Core системами
-2. 2026-03-04 [ID:INFRA-002] — decisions_log.md очищен от null-байтов, конвертирован в UTF-8
-3. 2026-03-04 [ID:DOC-001] — Документация обновлена до v2.0 (PRODUCER как точка входа)
-
----
-
-### 🔢 Features in Pipeline
-
-| Feature | Status | GDD Block | Sprint | Owner |
-|---------|--------|-----------|--------|-------|
-| Core Systems | DONE | N/A | 0 | DEV |
-| GDD v0.1 | TODO | N/A | 1 | GD |
-| First Playable | TODO | GDD-001 | 1-2 | DEV |
-
----
-
-### 📊 KPI Targets
-
-| Метрика | Target | Current | Status |
-|---------|--------|---------|--------|
-| CPI | < $0.50 | HYPOTHESIS | ⏳ |
-| D1 Retention | > 40% | HYPOTHESIS | ⏳ |
-| D7 Retention | > 15% | HYPOTHESIS | ⏳ |
-| Session Length | 3-5 мин | HYPOTHESIS | ⏳ |
-
----
-
-**Последнее обновление:** 2026-03-04
-**Следующее ревью:** После получения /concept от PRODUCER
-**Владелец:** GD
+## Open Design Questions
+- [ ] Механика замедления Cryo: max slow 90% на Lv7 — не слишком ли сильно? Нужно плейтестировать.
+- [ ] Energy-Harvester (T-011): на каком уровне игры разблокировать, чтобы трейдофф был понятен?
+- [ ] PvP bracket по tower tier — как считать tier? Sum level? Max level?
